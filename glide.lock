@@ -1,0 +1,16 @@
+hash: 0d83253eb926657050931f812e86bcb0bc3d4c585335c3d0ff62693057184541
+updated: 2016-05-25T20:21:10.558504209-04:00
+imports:
+- name: github.com/andybalholm/cascadia
+  version: 3ad29d1ad1c4f2023e355603324348cf1f4b2d48
+- name: github.com/mattn/go-sqlite3
+  version: 38ee283dabf11c9cbdb968eebd79b1fa7acbabe6
+- name: github.com/PuerkitoBio/goquery
+  version: 2e29ea41f0d13f4a303c75553f4eeadddc7a4c56
+- name: golang.org/x/net
+  version: b3e9c8fbe09fe2b5b27bfb7320c1f77b640111be
+  subpackages:
+  - context
+  - html
+  - html/atom
+devImports: []
