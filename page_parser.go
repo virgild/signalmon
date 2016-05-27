@@ -34,12 +34,14 @@ func ParseDiagnosticsPage(pagebody string) (Signals, error) {
 		}
 
 		signals.ForwardSignals[channel] = ForwardSignal{
-			Channel:    channel,
-			Frequency:  float32(frequency),
-			Power:      float32(power),
-			SNR:        float32(snr),
-			BER:        float32(ber),
-			Modulation: modulation,
+			ChannelData: ChannelData{
+				Channel:    channel,
+				Frequency:  float32(frequency),
+				Power:      float32(power),
+				Modulation: modulation,
+			},
+			SNR: float32(snr),
+			BER: float32(ber),
 		}
 	})
 
@@ -64,10 +66,12 @@ func ParseDiagnosticsPage(pagebody string) (Signals, error) {
 		}
 
 		signals.ReturnSignals[channel] = ReturnSignal{
-			Channel:    channel,
-			Frequency:  float32(frequency),
-			Power:      float32(power),
-			Modulation: modulation,
+			ChannelData: ChannelData{
+				Channel:    channel,
+				Frequency:  float32(frequency),
+				Power:      float32(power),
+				Modulation: modulation,
+			},
 		}
 	})
 

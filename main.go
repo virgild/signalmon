@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -23,11 +22,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	json, err := json.Marshal(stats)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(string(json))
+
+	fmt.Println(stats)
 
 	// db, err := initdb("readings.db")
 	// if err != nil {
