@@ -5,11 +5,41 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	_ "github.com/mattn/go-sqlite3"
 )
 
 func main() {
+	ch := make(chan os.Signal, 1)
+	signal.Notify(ch, syscall.SIGHUP, syscall.SIGTERM, syscall.SIGINT, syscall.SIGKILL)
+
+	go func() {
+		for {
+			select {
+			case <-time.After(60 * time.Second):
+				makeReadings()
+			}
+		}
+	}()
+
+	for s := range ch {
+		switch s {
+		case syscall.SIGHUP:
+			fallthrough
+		case syscall.SIGTERM:
+			fallthrough
+		case syscall.SIGKILL:
+			fallthrough
+		case syscall.SIGINT:
+			return
+		}
+	}
+}
+
+func makeReadings() {
 	url := "http://192.168.100.1/Diagnostics.asp"
 	body, err := fetchPage(url)
 	if err != nil {
@@ -21,9 +51,9 @@ func main() {
 		fmt.Printf("Could not parse page result - %v", err)
 		os.Exit(1)
 	}
-	for _, s := range signals.ForwardSignals {
-		fmt.Printf("%+v\n", s)
-	}
+	// for _, s := range signals.ForwardSignals {
+	// 	fmt.Printf("%+v\n", s)
+	// }
 
 	db, err := InitDB("readings.db")
 	if err != nil {
