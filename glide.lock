@@ -1,5 +1,5 @@
 hash: 0d83253eb926657050931f812e86bcb0bc3d4c585335c3d0ff62693057184541
-updated: 2016-05-26T18:55:03.040029378-04:00
+updated: 2016-05-28T21:16:18.468104173-04:00
 imports:
 - name: github.com/andybalholm/cascadia
   version: 3ad29d1ad1c4f2023e355603324348cf1f4b2d48
@@ -8,7 +8,7 @@ imports:
 - name: github.com/PuerkitoBio/goquery
   version: aeecb06b1e04a72e7d3312468c5b92f6bb2f3459
 - name: golang.org/x/net
-  version: dfd9ed699ea197b58a32e0d1dcfa2be66f127ec4
+  version: 30db96677b74e24b967e23f911eb3364fc61a011
   subpackages:
   - context
   - html

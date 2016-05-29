@@ -185,17 +185,15 @@ var diagnostics_page = `
 
 func TestParseDiagnosticsPage(t *testing.T) {
 	statsdata, err := ParseDiagnosticsPage(diagnostics_page)
-	t.Log(statsdata)
-
 	if err != nil {
 		t.Errorf("ParsePage() return an error: %v", err)
 	}
 
-	if statsdata.ForwardSignals[2].Power != -3.1 {
-		t.Errorf("statsdata.ForwardSignals[2].Power != -3.1")
+	if statsdata.ForwardSignals[1].Power() != -3.1 {
+		t.Errorf("statsdata.ForwardSignals[1].Power() != -3.1")
 	}
 
-	if statsdata.ForwardSignals[2].Frequency != 669.0 {
-		t.Errorf("statsdata.ForwardSignals[2].Frequency != 669.0 (%f)", statsdata.ForwardSignals[1].Frequency)
+	if statsdata.ForwardSignals[1].Frequency() != 669.0 {
+		t.Errorf("statsdata.ForwardSignals[1].Frequency() != 669.0 (%f)", statsdata.ForwardSignals[1].Frequency())
 	}
 }

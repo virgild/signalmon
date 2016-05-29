@@ -8,8 +8,11 @@ Description:
 
 Signalmon monitors your cable modem (DCM-476) signal data.
 
-Requirements:
+Building Requirements:
 -------------
+
+* Go 1.6
+* Glide (https://github.com/Masterminds/glide)
 
 How To Use:
 -----------

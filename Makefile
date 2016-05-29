@@ -3,6 +3,7 @@ default: signalmon
 .PHONY: signalmon
 signalmon:
 	@go build
+	@go test
 
 .PHONY: test
 test:

@@ -1,32 +1,62 @@
 package main
 
+type Channel interface {
+	Number() int
+	Frequency() float32
+	Power() float32
+	Modulation() int
+	SNR() float32
+	BER() float32
+}
+
 type ChannelData struct {
-	Channel    int     `json:"channel"`
-	Frequency  float32 `json:"frequency"`
-	Power      float32 `json:"power"`
-	Modulation int     `json:"modulation"`
+	channel    int     `json:"channel"`
+	frequency  float32 `json:"frequency"`
+	power      float32 `json:"power"`
+	snr        float32 `json:"snr"`
+	ber        float32 `json:"ber"`
+	modulation int     `json:"modulation"`
 }
 
-type ForwardSignal struct {
-	ChannelData
-	SNR float32 `json:"snr"`
-	BER float32 `json:"ber"`
+func (c *ChannelData) Number() int {
+	return c.channel
 }
 
-type ForwardSignals []ForwardSignal
-
-type ReturnSignal struct {
-	ChannelData
+func (c *ChannelData) Frequency() float32 {
+	return c.frequency
 }
 
-type ReturnSignals []ReturnSignal
-
-type StatsData struct {
-	ForwardSignals []ForwardSignal `json:"forwardsignals"`
-	ReturnSignals  []ReturnSignal  `json:"returnsignals"`
+func (c *ChannelData) Power() float32 {
+	return c.power
 }
 
-type Signals struct {
-	ForwardSignals map[int]ForwardSignal `json:"forwardsignals"`
-	ReturnSignals  map[int]ReturnSignal  `json:"returnsignals"`
+func (c *ChannelData) Modulation() int {
+	return c.modulation
+}
+
+func (c *ChannelData) SNR() float32 {
+	return c.snr
+}
+
+func (c *ChannelData) BER() float32 {
+	return c.ber
+}
+
+type Channels []Channel
+
+func (c Channels) Len() int {
+	return len(c)
+}
+
+func (c Channels) Less(i, j int) bool {
+	return c[i].Number() < c[j].Number()
+}
+
+func (c Channels) Swap(i, j int) {
+	c[i], c[j] = c[j], c[i]
+}
+
+type SignalsData struct {
+	ForwardSignals Channels
+	ReturnSignals  Channels
 }

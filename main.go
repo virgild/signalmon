@@ -4,13 +4,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 
 	_ "github.com/mattn/go-sqlite3"
-	"golang.org/x/net/context"
 )
-
-var leepits [30]string
-var catstream chan string = make(chan string)
 
 func main() {
 	url := "http://192.168.100.1/Diagnostics.asp"
@@ -18,22 +15,25 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	stats, err := ParseDiagnosticsPage(body)
+
+	signals, err := ParseDiagnosticsPage(body)
+	if err != nil {
+		fmt.Printf("Could not parse page result - %v", err)
+		os.Exit(1)
+	}
+	for _, s := range signals.ForwardSignals {
+		fmt.Printf("%+v\n", s)
+	}
+
+	db, err := InitDB("readings.db")
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(stats)
-
-	// db, err := initdb("readings.db")
-	// if err != nil {
-	// 	panic(err)
-	// }
-
-	// err = insertData(db, stats)
-	// if err != nil {
-	// 	log.Println(err)
-	// }
+	err = InsertData(db, signals)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func fetchPage(url string) (string, error) {
@@ -48,8 +48,4 @@ func fetchPage(url string) (string, error) {
 		}
 		return string(contents), nil
 	}
-}
-
-func t(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Good")
 }
