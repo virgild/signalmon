@@ -19,11 +19,15 @@ func main() {
 	go func() {
 		for {
 			select {
-			case <-time.After(60 * time.Second):
-				makeReadings()
+			case t := <-time.After(time.Second):
+				if t.Second() == 0 {
+					makeReadings()
+				}
 			}
 		}
 	}()
+
+	go StartServer(3000)
 
 	for s := range ch {
 		switch s {

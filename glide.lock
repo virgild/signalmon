@@ -1,12 +1,20 @@
 hash: 0d83253eb926657050931f812e86bcb0bc3d4c585335c3d0ff62693057184541
-updated: 2016-05-28T21:16:18.468104173-04:00
+updated: 2016-05-29T09:15:22.475576328-04:00
 imports:
 - name: github.com/andybalholm/cascadia
   version: 3ad29d1ad1c4f2023e355603324348cf1f4b2d48
+- name: github.com/gorilla/handlers
+  version: 66e6c6f01d8da976ee113437745ca029c2b585a6
 - name: github.com/mattn/go-sqlite3
   version: 38ee283dabf11c9cbdb968eebd79b1fa7acbabe6
 - name: github.com/PuerkitoBio/goquery
   version: aeecb06b1e04a72e7d3312468c5b92f6bb2f3459
+- name: goji.io
+  version: e355964ac565b94cf0fc7f218346626529125086
+  subpackages:
+  - pat
+  - internal
+  - pattern
 - name: golang.org/x/net
   version: 30db96677b74e24b967e23f911eb3364fc61a011
   subpackages:

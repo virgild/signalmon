@@ -1,3 +1,5 @@
 signalmon
 vendor/
+assets/node_modules
+assets/bundle.js
 *.db
