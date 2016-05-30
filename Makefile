@@ -1,9 +1,15 @@
 default: signalmon
 
+.PHONY: all
+all: assets signalmon
+
+.PHONY: clean_all
+clean_all: clean clean_assets
+
 .PHONY: signalmon
 signalmon: templates/index.go
-	@go build
-	@go test
+	go build
+	go test
 
 templates/index.go: templates/index.html
 
@@ -11,16 +17,16 @@ templates/index.go: templates/index.html
 assets: assets/bundle.js
 
 assets/bundle.js: assets/app.js assets/app.css
-	@cd assets && npm run build
+	cd assets && npm run build
 
 .PHONY: test
 test:
-	@go test
+	go test
 
 .PHONY: clean_assets
 clean_assets:
-	@cd assets && npm run clean
+	cd assets && npm run clean
 
 .PHONY: clean
 clean:
-	@rm -f signalmon
+	rm -f signalmon
