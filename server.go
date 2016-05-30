@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io"
 	"net/http"
 	"os"
 
@@ -47,13 +46,5 @@ func indexPage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 }
 
 func jsBundle(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", r.Header.Get("Content-Type"))
-	f, err := os.Open("./assets/bundle.js")
-	if err != nil {
-		panic(err)
-	}
-
-	defer f.Close()
-
-	io.Copy(w, f)
+	http.ServeFile(w, r, "./assets/bundle.js")
 }
