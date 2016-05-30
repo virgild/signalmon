@@ -11,7 +11,7 @@ templates/index.go: templates/index.html
 assets: assets/bundle.js
 
 assets/bundle.js: assets/app.js assets/app.css
-	@cd assets && browserify -t [ babelify ] -t browserify-css app.js -o bundle.js
+	@cd assets && npm run build
 
 .PHONY: test
 test:
@@ -19,7 +19,7 @@ test:
 
 .PHONY: clean_assets
 clean_assets:
-	@rm -f assets/bundle.js
+	@cd assets && npm run clean
 
 .PHONY: clean
 clean:
