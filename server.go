@@ -5,8 +5,6 @@ import (
 	"net/http"
 	"os"
 
-	"golang.org/x/net/context"
-
 	"github.com/gorilla/handlers"
 	"github.com/virgild/signalmon/templates"
 	"goji.io"
@@ -33,18 +31,18 @@ import (
 func StartServer(port int) {
 	listenStr := fmt.Sprintf(":%d", port)
 	mux := goji.NewMux()
-	mux.HandleFuncC(pat.Get("/bundle.js"), jsBundle)
-	mux.HandleFuncC(pat.Get("/"), indexPage)
+	mux.HandleFunc(pat.Get("/bundle.js"), jsBundle)
+	mux.HandleFunc(pat.Get("/"), indexPage)
 
 	loggedMux := handlers.LoggingHandler(os.Stdout, mux)
 
 	http.ListenAndServe(listenStr, loggedMux)
 }
 
-func indexPage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+func indexPage(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, templates.IndexHtml)
 }
 
-func jsBundle(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+func jsBundle(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "./assets/bundle.js")
 }
